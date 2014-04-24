@@ -1,4 +1,4 @@
 meteor-accounting
 =================
 
-Simple accounting software written in python with wxwidgets and sqlite3
+Simple accounting software written in python with PySide and sqlite3
