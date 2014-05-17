@@ -336,7 +336,7 @@ class Accounting(QtGui.QMainWindow, Ui_MainWindow):
                 doc.add_table_auszug(buchungen_table, TABLE_WIDTH)
 
         document = doc.render()
-        outfile = open(filename+' '+mandname+'.pdf', 'w')
+        outfile = open(filename+' '+mandname+'.pdf', 'wb')
         outfile.write(document)
         outfile.close()
         os.system('xdg-open "'+filename+' '+mandname+'.pdf"')
@@ -403,7 +403,7 @@ class Accounting(QtGui.QMainWindow, Ui_MainWindow):
             
             
         document = doc.render()
-        outfile = open('Bilanz '+mandname+'.pdf', 'w')
+        outfile = open('Bilanz '+mandname+'.pdf', 'wb')
         outfile.write(document)
         outfile.close()
         os.system('xdg-open "Bilanz '+mandname+'.pdf"')
@@ -652,7 +652,7 @@ class Kontoauszug(QtGui.QDialog, Ui_Dialog):
         buchungen_table.append(['Summe Bewegungen:','','','','%.2f' % total_soll,'%.2f' % total_haben , saldo_cell]) 
         doc.add_table_auszug(buchungen_table, TABLE_WIDTH)
         document = doc.render()
-        outfile = open('Kontoauszug '+konto[1]+'.pdf', 'w')
+        outfile = open('Kontoauszug '+konto[1]+'.pdf', 'wb')
         outfile.write(document)
         outfile.close()
         os.system('xdg-open "Kontoauszug '+konto[1]+'.pdf"')
