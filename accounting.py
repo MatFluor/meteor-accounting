@@ -580,7 +580,7 @@ class Kontoauszug(QtGui.QDialog, Ui_Dialog):
         self.setupUi(self)
         
     def getWrite(self, konto, kontoname):
-        db = QSqlDatabase.addDatabase('QSQLITE')
+        db = QSqlDatabase.addDatabase('QSQLITE3')
         db.setDatabaseName(fname)
         
         db.open()
