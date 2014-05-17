@@ -610,7 +610,7 @@
             <rect>
              <x>10</x>
              <y>20</y>
-             <width>181</width>
+             <width>185</width>
              <height>241</height>
             </rect>
            </property>
@@ -673,14 +673,6 @@
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="nullein_chk">
-              <property name="text">
-               <string>Konten mit Nullsaldo
-einblenden</string>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="Line" name="line_2">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -690,6 +682,22 @@ einblenden</string>
               </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="nullein_chk">
+              <property name="text">
+               <string>Konten mit Nullsaldo
+einblenden</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox">
+              <property name="text">
+               <string>Aktiv / Passiv
+auftrennen</string>
               </property>
              </widget>
             </item>

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Sat May 17 06:18:53 2014
+# Created: Sat May 17 07:04:23 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -318,7 +318,7 @@ class Ui_MainWindow(object):
         self.groupBox_3.setCheckable(False)
         self.groupBox_3.setObjectName("groupBox_3")
         self.verticalLayoutWidget = QtGui.QWidget(self.groupBox_3)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 20, 181, 241))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 20, 185, 241))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout_2.setSpacing(2)
@@ -349,9 +349,6 @@ class Ui_MainWindow(object):
         self.plan_chk.setFont(font)
         self.plan_chk.setObjectName("plan_chk")
         self.verticalLayout_2.addWidget(self.plan_chk)
-        self.nullein_chk = QtGui.QCheckBox(self.verticalLayoutWidget)
-        self.nullein_chk.setObjectName("nullein_chk")
-        self.verticalLayout_2.addWidget(self.nullein_chk)
         self.line_2 = QtGui.QFrame(self.verticalLayoutWidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -362,6 +359,12 @@ class Ui_MainWindow(object):
         self.line_2.setFrameShadow(QtGui.QFrame.Sunken)
         self.line_2.setObjectName("line_2")
         self.verticalLayout_2.addWidget(self.line_2)
+        self.nullein_chk = QtGui.QCheckBox(self.verticalLayoutWidget)
+        self.nullein_chk.setObjectName("nullein_chk")
+        self.verticalLayout_2.addWidget(self.nullein_chk)
+        self.checkBox = QtGui.QCheckBox(self.verticalLayoutWidget)
+        self.checkBox.setObjectName("checkBox")
+        self.verticalLayout_2.addWidget(self.checkBox)
         self.show_report_btn = QtGui.QPushButton(self.verticalLayoutWidget)
         font = QtGui.QFont()
         font.setPointSize(9)
@@ -579,6 +582,8 @@ class Ui_MainWindow(object):
         self.plan_chk.setText(QtGui.QApplication.translate("MainWindow", "Kontenplan", None, QtGui.QApplication.UnicodeUTF8))
         self.nullein_chk.setText(QtGui.QApplication.translate("MainWindow", "Konten mit Nullsaldo\n"
 "einblenden", None, QtGui.QApplication.UnicodeUTF8))
+        self.checkBox.setText(QtGui.QApplication.translate("MainWindow", "Aktiv / Passiv\n"
+"auftrennen", None, QtGui.QApplication.UnicodeUTF8))
         self.show_report_btn.setText(QtGui.QApplication.translate("MainWindow", "Anzeigen", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_2.setTitle(QtGui.QApplication.translate("MainWindow", "Kontenplan / Saldoübersicht", None, QtGui.QApplication.UnicodeUTF8))
         self.edit_ktoplan_btn.setText(QtGui.QApplication.translate("MainWindow", "Kontenplan bearbeiten", None, QtGui.QApplication.UnicodeUTF8))
