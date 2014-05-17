@@ -652,10 +652,10 @@ class Kontoauszug(QtGui.QDialog, Ui_Dialog):
         buchungen_table.append(['Summe Bewegungen:','','','','%.2f' % total_soll,'%.2f' % total_haben , saldo_cell]) 
         doc.add_table_auszug(buchungen_table, TABLE_WIDTH)
         document = doc.render()
-        outfile = open('test.pdf', 'w')
+        outfile = open('Kontoauszug '+konto[1]+'.pdf', 'w')
         outfile.write(document)
         outfile.close()
-        os.system('xdg-open test.pdf')
+        os.system('xdg-open "Kontoauszug '+konto[1]+'.pdf'")
 
 class NewKonto(QtGui.QDialog, Ui_new_kto):
     addKonto = Signal()
