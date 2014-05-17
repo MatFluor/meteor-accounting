@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Sat May 17 06:05:04 2014
+# Created: Sat May 17 06:18:53 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -321,8 +321,9 @@ class Ui_MainWindow(object):
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 20, 181, 241))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.verticalLayoutWidget)
-        self.verticalLayout_2.setSpacing(4)
-        self.verticalLayout_2.setContentsMargins(-1, -1, -1, 0)
+        self.verticalLayout_2.setSpacing(2)
+        self.verticalLayout_2.setSizeConstraint(QtGui.QLayout.SetFixedSize)
+        self.verticalLayout_2.setContentsMargins(-1, -1, -1, 6)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.bilanz_chk = QtGui.QCheckBox(self.verticalLayoutWidget)
         font = QtGui.QFont()
