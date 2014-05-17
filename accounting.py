@@ -655,7 +655,7 @@ class Kontoauszug(QtGui.QDialog, Ui_Dialog):
         outfile = open('Kontoauszug '+konto[1]+'.pdf', 'w')
         outfile.write(document)
         outfile.close()
-        os.system('xdg-open "Kontoauszug '+konto[1]+'.pdf'")
+        os.system('xdg-open "Kontoauszug '+konto[1]+'.pdf"')
 
 class NewKonto(QtGui.QDialog, Ui_new_kto):
     addKonto = Signal()
