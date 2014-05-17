@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Thu May 15 17:23:42 2014
+# Created: Sat May 17 06:05:04 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -313,14 +313,12 @@ class Ui_MainWindow(object):
         self.settingstab.setObjectName("settingstab")
         self.gridLayout_3 = QtGui.QGridLayout(self.settingstab)
         self.gridLayout_3.setObjectName("gridLayout_3")
-        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_3.addItem(spacerItem, 2, 1, 1, 1)
         self.groupBox_3 = QtGui.QGroupBox(self.settingstab)
         self.groupBox_3.setFlat(False)
         self.groupBox_3.setCheckable(False)
         self.groupBox_3.setObjectName("groupBox_3")
         self.verticalLayoutWidget = QtGui.QWidget(self.groupBox_3)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 20, 181, 234))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 20, 181, 241))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout_2.setSpacing(4)
@@ -363,26 +361,6 @@ class Ui_MainWindow(object):
         self.line_2.setFrameShadow(QtGui.QFrame.Sunken)
         self.line_2.setObjectName("line_2")
         self.verticalLayout_2.addWidget(self.line_2)
-        self.label_9 = QtGui.QLabel(self.verticalLayoutWidget)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_9.sizePolicy().hasHeightForWidth())
-        self.label_9.setSizePolicy(sizePolicy)
-        self.label_9.setObjectName("label_9")
-        self.verticalLayout_2.addWidget(self.label_9)
-        self.radioButton = QtGui.QRadioButton(self.verticalLayoutWidget)
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.radioButton.setFont(font)
-        self.radioButton.setObjectName("radioButton")
-        self.verticalLayout_2.addWidget(self.radioButton)
-        self.radioButton_2 = QtGui.QRadioButton(self.verticalLayoutWidget)
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.radioButton_2.setFont(font)
-        self.radioButton_2.setObjectName("radioButton_2")
-        self.verticalLayout_2.addWidget(self.radioButton_2)
         self.show_report_btn = QtGui.QPushButton(self.verticalLayoutWidget)
         font = QtGui.QFont()
         font.setPointSize(9)
@@ -504,6 +482,8 @@ class Ui_MainWindow(object):
         self.pushButton.setObjectName("pushButton")
         self.gridLayout_4.addWidget(self.pushButton, 1, 0, 1, 1)
         self.gridLayout_3.addWidget(self.groupBox, 2, 0, 1, 1)
+        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout_3.addItem(spacerItem, 2, 1, 1, 1)
         self.tabWidget.addTab(self.settingstab, "")
         self.verticalLayout.addWidget(self.tabWidget)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -511,6 +491,7 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.toolBar = QtGui.QToolBar(MainWindow)
+        self.toolBar.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
         self.toolBar.setToolButtonStyle(QtCore.Qt.ToolButtonFollowStyle)
         self.toolBar.setFloatable(True)
         self.toolBar.setObjectName("toolBar")
@@ -537,10 +518,11 @@ class Ui_MainWindow(object):
         self.toolBar.addAction(self.actionSave)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QObject.connect(self.add_booking_btn, QtCore.SIGNAL("clicked()"), self.buchungen.expandAll)
         QtCore.QObject.connect(self.soll_kto, QtCore.SIGNAL("textChanged(QString)"), self.soll_kto_lbl.setText)
         QtCore.QObject.connect(self.haben_ktos, QtCore.SIGNAL("textChanged(QString)"), self.haben_kto_lbl.setText)
+        QtCore.QObject.connect(self.buchungs_txt, QtCore.SIGNAL("returnPressed()"), self.add_booking_btn.click)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.beleg_nr, self.dateEdit)
         MainWindow.setTabOrder(self.dateEdit, self.soll_kto)
@@ -559,9 +541,7 @@ class Ui_MainWindow(object):
         MainWindow.setTabOrder(self.bilanz_chk, self.konto_chk)
         MainWindow.setTabOrder(self.konto_chk, self.er_chk)
         MainWindow.setTabOrder(self.er_chk, self.plan_chk)
-        MainWindow.setTabOrder(self.plan_chk, self.radioButton)
-        MainWindow.setTabOrder(self.radioButton, self.radioButton_2)
-        MainWindow.setTabOrder(self.radioButton_2, self.show_report_btn)
+        MainWindow.setTabOrder(self.plan_chk, self.show_report_btn)
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "Meteor-Accounting v0.1b", None, QtGui.QApplication.UnicodeUTF8))
@@ -598,9 +578,6 @@ class Ui_MainWindow(object):
         self.plan_chk.setText(QtGui.QApplication.translate("MainWindow", "Kontenplan", None, QtGui.QApplication.UnicodeUTF8))
         self.nullein_chk.setText(QtGui.QApplication.translate("MainWindow", "Konten mit Nullsaldo\n"
 "einblenden", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_9.setText(QtGui.QApplication.translate("MainWindow", "Anzeigen auf:", None, QtGui.QApplication.UnicodeUTF8))
-        self.radioButton.setText(QtGui.QApplication.translate("MainWindow", "Bildschirm", None, QtGui.QApplication.UnicodeUTF8))
-        self.radioButton_2.setText(QtGui.QApplication.translate("MainWindow", "Drucker", None, QtGui.QApplication.UnicodeUTF8))
         self.show_report_btn.setText(QtGui.QApplication.translate("MainWindow", "Anzeigen", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_2.setTitle(QtGui.QApplication.translate("MainWindow", "Kontenplan / Saldoübersicht", None, QtGui.QApplication.UnicodeUTF8))
         self.edit_ktoplan_btn.setText(QtGui.QApplication.translate("MainWindow", "Kontenplan bearbeiten", None, QtGui.QApplication.UnicodeUTF8))

@@ -98,10 +98,15 @@ class Accounting(QtGui.QMainWindow, Ui_MainWindow):
         self.readDB()
 #-------------------------------------------------------------------------------
     def readDB(self):
+        self.buchungen.clear()
         global cursor
         global cursor2
         cursor = connection.cursor()
         cursor2 = connection.cursor()
+        try:
+            self.kontenplan.clear()
+        except AttributeError:
+            pass
         self.UpdateKontenplan()
         infos = cursor.execute("SELECT * FROM mandant")
         for row in infos:
@@ -116,11 +121,21 @@ class Accounting(QtGui.QMainWindow, Ui_MainWindow):
         self.mwst_2.setText(mwst2)
         self.mwst_3.setText(mwst3)
         self.mwst_satz.clear()
-        if mwst1 == "0" or mwst1 == '0.0':
+        if mwst1 == "0" or mwst1 == '0.0' or mwst1 == '0.0 %':
             mwst1 = "Keine"
         self.mwst_satz.addItem(mwst1)
         self.mwst_satz.addItem(mwst2)
         self.mwst_satz.addItem(mwst3)
+        buchungen = cursor.execute("SELECT * FROM transactions")
+        trans_list = list()
+        buchnr = 1
+        for row in buchungen:
+            toplevel = [str(row[0]), row[1], row[2], row[3], row[5], row[4], row[7], '']
+            haben_child = ['', '', row[2], row[4], row[6], row[3], row[7], row[8]]
+            steuer_child = ['','', row[2], '2200', str(float(row[5]) - float(row[6])), row[3], row[7], '']
+            buchnr += 1
+            self.populateWidgets(toplevel, haben_child, steuer_child)
+        self.beleg_nr.setText(str(buchnr))
 #-------------------------------------------------------------------------------
     def UpdateKontenplan(self):
         cursor = connection.cursor()
@@ -146,7 +161,6 @@ class Accounting(QtGui.QMainWindow, Ui_MainWindow):
         self.kontenplan.expandAll()
         self.kontenplan.resizeColumnToContents(0)
         self.kontenplan.resizeColumnToContents(1)
-        self.verticalLayout_3.removeWidget(self.kontenplan)
         self.verticalLayout_3.addWidget(self.kontenplan)
 #-------------------------------------------------------------------------------
     def AddBuchung(self):
@@ -191,6 +205,7 @@ class Accounting(QtGui.QMainWindow, Ui_MainWindow):
             gegensaldo = float(gegensaldo) - float(netto)
             gegensaldo = str(gegensaldo)
         except: gegensaldo =  '-'+netto
+        trans_inserts = [belegnr, date, konto, gegenkonto, betrag, netto, buchungstext, mwst_txt]
         sql_inserts = [date, belegnr, buchungstext, gegenkonto, netto, '', saldo]
         sql_gegeninserts = [date, belegnr, buchungstext, konto, '', netto, gegensaldo]
         toplevel = [buchnr, belegnr, date, konto, betrag, gegenkonto, buchungstext, '']
@@ -204,6 +219,8 @@ class Accounting(QtGui.QMainWindow, Ui_MainWindow):
         cursor.execute(statement, sql_inserts)
         statement = 'INSERT INTO "%s" (datum, belegnr, buchungstext, gegenkonto, soll, haben, saldo) VALUES (?,?,?,?,?,?,?)' % gegenkonto
         cursor.execute(statement, sql_gegeninserts)
+        statement = 'INSERT INTO transactions (belegnr, datum, soll_kto, haben_kto, brutto, netto, text, mwst_satz) VALUES (?,?,?,?,?,?,?,?)'
+        cursor.execute(statement, trans_inserts)
         connection.commit()
         # Expand all Trees
         self.buchungen.expandAll()
@@ -232,7 +249,8 @@ class Accounting(QtGui.QMainWindow, Ui_MainWindow):
         main_buchung = QTreeWidgetItem(toplevel)
         child1 = QTreeWidgetItem(haben_child)
         main_buchung.addChild(child1)
-        if steuer_child[4] != '':
+        steuerin = ['0.0', '']
+        if steuer_child[4] not in steuerin:
             child2 = QTreeWidgetItem(steuer_child)
             child2.setForeground(2, QColor("blue"))
             child2.setForeground(3, QColor("blue"))
@@ -242,6 +260,9 @@ class Accounting(QtGui.QMainWindow, Ui_MainWindow):
             main_buchung.addChild(child2)
         else: pass
         self.buchungen.insertTopLevelItem(0,main_buchung)
+        self.buchungen.resizeColumnToContents(0)
+        self.buchungen.resizeColumnToContents(1)
+        self.buchungen.expandAll()
 #-------------------------------------------------------------------------------
     def DelBuchung(self):
         '''Deletes a selected entry in the mein TreeWidget'''
@@ -423,7 +444,7 @@ class NewMand(QtGui.QWizard, Ui_MandantenWizard):
         self.kontenplan.expandAll()
         self.kontenplan.resizeColumnToContents(0)
         self.kontenplan.resizeColumnToContents(1)
-        self.verticalLayout.removeWidget(self.kontenplan)
+        #self.verticalLayout.removeWidget(self.kontenplan)
         self.verticalLayout.addWidget(self.kontenplan)
         self.kontenplanupdate.emit()
     def createDB(self):
@@ -437,7 +458,7 @@ class NewMand(QtGui.QWizard, Ui_MandantenWizard):
             ## Cursors ändern!
             try:
                 cursor.execute("""CREATE TABLE transactions ( 
-                                                    number INTEGER UNIQUE,
+                                                    number INTEGER PRIMARY KEY AUTOINCREMENT,
                                                     belegnr TEXT, 
                                                     datum TEXT,
                                                     soll_kto TEXT,
