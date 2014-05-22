@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'mainwindow.ui'
+# Form implementation generated from reading ui file 'ui/mainwindow.ui'
 #
-# Created: Sat May 17 07:07:19 2014
-#      by: pyside-uic 0.2.15 running on PySide 1.2.1
+# Created: Thu May 22 08:23:19 2014
+#      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -522,7 +522,7 @@ class Ui_MainWindow(object):
         self.toolBar.addAction(self.actionSave)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QObject.connect(self.add_booking_btn, QtCore.SIGNAL("clicked()"), self.buchungen.expandAll)
         QtCore.QObject.connect(self.soll_kto, QtCore.SIGNAL("textChanged(QString)"), self.soll_kto_lbl.setText)
         QtCore.QObject.connect(self.haben_ktos, QtCore.SIGNAL("textChanged(QString)"), self.haben_kto_lbl.setText)
@@ -594,7 +594,7 @@ class Ui_MainWindow(object):
 "einblenden", None, QtGui.QApplication.UnicodeUTF8))
         self.checkBox.setText(QtGui.QApplication.translate("MainWindow", "Aktiv / Passiv\n"
 "auftrennen", None, QtGui.QApplication.UnicodeUTF8))
-        self.show_report_btn.setText(QtGui.QApplication.translate("MainWindow", "Anzeigen", None, QtGui.QApplication.UnicodeUTF8))
+        self.show_report_btn.setText(QtGui.QApplication.translate("MainWindow", "Anzeigen", "show_report", QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.settingstab), QtGui.QApplication.translate("MainWindow", "Mandant / Berichte", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBar.setWindowTitle(QtGui.QApplication.translate("MainWindow", "toolBar", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_Mand.setText(QtGui.QApplication.translate("MainWindow", "Neuer Mandant", None, QtGui.QApplication.UnicodeUTF8))

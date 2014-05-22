@@ -27,7 +27,7 @@
        <enum>QTabWidget::South</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -942,7 +942,7 @@ auftrennen</string>
                </font>
               </property>
               <property name="text">
-               <string>Anzeigen</string>
+               <string comment="show_report">Anzeigen</string>
               </property>
               <property name="default">
                <bool>true</bool>
