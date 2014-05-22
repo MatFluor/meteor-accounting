@@ -12,7 +12,7 @@ Meteor-accounting is intended for bookkeeping and basic accounting in a small bu
 
 ### FAQ
 #### What do you mean by protable?
-What *portable* means is that you don't need to go through some installation process, so just download the release for your OS and you're ready to go!
+What **portable** means is that you don't need to go through some installation process, so just download the release for your OS and you're ready to go!
 
 #### Where are the files (meaning the databases)?
 The Databases are per default made where your executable resides, on the same level (I might change that later on).
@@ -21,7 +21,7 @@ The Databases are per default made where your executable resides, on the same le
 No, that's what portable means too - no dependencies on your side.
 
 #### Is it reliable? If I loose the data I'm screwed!
-meteor-accounting works with the SQLite3 Database engine in it's background - every transaction is written into the database when you do it - so no manuel "Save" is necessary. *But this does not mean that a backup is useless!* A backup is a reliable way to make sure your data isn't lost in case of a crash or similar events.
+meteor-accounting works with the SQLite3 Database engine in it's background - every transaction is written into the database when you do it - so no manuel _Save_ is necessary. **But this does not mean that a backup is useless!** A backup is a reliable way to make sure your data isn't lost in case of a crash or similar events.
 
 #### A Backup sounds nice, do I need to always copy the file to my eg. USB stick by myself?
 At the moment - yes. I'm working on a simple Backup mechanism, which always saves your database on a location of your choice. The location will then be visible as "backup path" in the program.
