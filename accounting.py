@@ -8,19 +8,19 @@ from PySide.QtSql import *
 #from PyQt4.QtGui import *
 #from PyQt4.QtCore import *
 
-from mainwindow_ui import *
-from sb_dialog_ui import *
-from kontenplan_ui import *
-from kontoauszug_ui import *
-from new_kto_ui import *
-from mandanten_erstellen_ui import *
+from ui.mainwindow_ui import *
+from ui.sb_dialog_ui import *
+from ui.kontenplan_ui import *
+from ui.kontoauszug_ui import *
+from ui.new_kto_ui import *
+from ui.mandanten_erstellen_ui import *
 import sys
 import sqlite3
-import treeoftable
-import meteorpdf
+import modules.treeoftable
+import modules.meteorpdf
 import os
 
-from meteorpdf.theme import colors, DefaultTheme
+from modules.meteorpdf.theme import colors, DefaultTheme
 
 TABLE_WIDTH = 530
 
@@ -537,13 +537,13 @@ class Kontenplan(QtGui.QDialog, Ui_Kontenplan):
         self.verticalLayout.addWidget(self.kontenplan)
         self.update.emit()
 
-class ServerModel(treeoftable.TreeOfTableModel):
+class ServerModel(modules.treeoftable.TreeOfTableModel):
     def __init__(self, parent=None):
         super(ServerModel, self).__init__(parent)
     def data(self, index, role):
         if role == Qt.DecorationRole:
             node = self.nodeFromIndex(index)
-        return treeoftable.TreeOfTableModel.data(self, index, role)
+        return modules.treeoftable.TreeOfTableModel.data(self, index, role)
 
 class TreeOfTableWidget(QTreeView):
     def __init__(self, filename, nesting, separator, parent=None):
