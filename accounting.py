@@ -265,10 +265,23 @@ class Accounting(QtGui.QMainWindow, Ui_MainWindow):
         self.buchungen.expandAll()
 #-------------------------------------------------------------------------------
     def DelBuchung(self):
-        '''Deletes a selected entry in the mein TreeWidget'''
+        '''Deletes a selected entry in the main TreeWidget and Database'''
         entry = self.buchungen.currentItem()
         item = self.buchungen.indexOfTopLevelItem(entry)
         self.buchungen.takeTopLevelItem(item)
+        result = cursor.execute('''SELECT belegnr, soll_kto, haben_kto FROM transactions WHERE number = ?''', str(item))
+        for row in result:
+            belegnr = row[0]
+            soll_kto = row[1]
+            haben_kto = row[2]
+            cursor.execute('''DELETE FROM transactions WHERE number = ?''', str(item))
+            del_soll = 'DELETE FROM "%s" WHERE belegnr = %s' % (soll_kto, belegnr)
+            del_haben = 'DELETE FROM "%s" WHERE belegnr = %s' % (haben_kto, belegnr)
+            cursor.execute(del_soll)
+            cursor.execute(del_haben)
+            # TODO: Saldi aller Buchungen in betroffenen Konten angleichen!
+            connection.commit()
+            
 #-------------------------------------------------------------------------------
     def Sammelbuchung(self):
         win = SB(self)
@@ -294,9 +307,9 @@ class Accounting(QtGui.QMainWindow, Ui_MainWindow):
             self.getBericht(self.mand_name.text(), "er")
 #-------------------------------------------------------------------------------
     def getKontoauszug(self, filename, mandname):
-        doc = meteorpdf.Pdf('Kontoauszug - Alle Konten','')
+        doc = modules.meteorpdf.Pdf('Kontoauszug - Alle Konten','')
         doc.set_theme(MyTheme)
-        doc.add_header(u'Kontoauszug für Mandant '+mandname, meteorpdf.H2)
+        doc.add_header(u'Kontoauszug für Mandant '+mandname, modules.meteorpdf.H2)
         doc.add_spacer()
         statement = "SELECT kontoname, kontonummer FROM kontenplan ORDER BY kontonummer"
         res = cursor.execute(statement)
@@ -331,7 +344,7 @@ class Accounting(QtGui.QMainWindow, Ui_MainWindow):
             if not self.nullein_chk.isChecked() and total_soll == 0.00 and total_haben == 0.00 and saldo_cell == 0.00:
                 continue
             else:
-                doc.add_header(konto[1]+' - '+konto[0], meteorpdf.H5)
+                doc.add_header(konto[1]+' - '+konto[0], modules.meteorpdf.H5)
                 buchungen_table.append(['Summe Bewegungen:','','','','%.2f' % total_soll,'%.2f' % total_haben , saldo_cell]) 
                 doc.add_table_auszug(buchungen_table, TABLE_WIDTH)
 
@@ -356,12 +369,12 @@ class Accounting(QtGui.QMainWindow, Ui_MainWindow):
             full_adresse += part+'<br/>'
         print full_adresse
         if bericht == 'bilanz':
-            doc = meteorpdf.Pdf('Bilanz','')
+            doc = modules.meteorpdf.Pdf('Bilanz','')
             doc.add_paragraph(full_adresse)
-            doc.add_header(u'Bilanz', meteorpdf.H2)
+            doc.add_header(u'Bilanz', modules.meteorpdf.H2)
         if bericht == 'er':
-            doc = meteorpdf.Pdf('Erfolgsrechnung','')
-            doc.add_header(u'Erfolgsrechnung für Mandant '+mandname, meteorpdf.H2)
+            doc = modules.meteorpdf.Pdf('Erfolgsrechnung','')
+            doc.add_header(u'Erfolgsrechnung für Mandant '+mandname, modules.meteorpdf.H2)
         doc.set_theme(MyTheme)
         doc.add_spacer()
         konten = []
@@ -399,7 +412,7 @@ class Accounting(QtGui.QMainWindow, Ui_MainWindow):
             doc.add_bilanz_header(buchungen_table_header, TABLE_WIDTH)
             for table in kontoart_table:
                 doc.add_table_bilanz(table, TABLE_WIDTH)
-            doc.add(meteorpdf.PageBreak())
+            doc.add(modules.meteorpdf.PageBreak())
             
             
         document = doc.render()
@@ -614,9 +627,9 @@ class Kontoauszug(QtGui.QDialog, Ui_Dialog):
         #self.label.setText(konto)
         
     def createAuszug(self, konto):
-        doc = meteorpdf.Pdf('Kontoauszug', '')
+        doc = modules.meteorpdf.Pdf('Kontoauszug', '')
         doc.set_theme(MyTheme)
-        doc.add_header('Kontoauszug', meteorpdf.H2)
+        doc.add_header('Kontoauszug', modules.meteorpdf.H2)
         doc.add_spacer()
         buchungen_table = [['Datum', 'Belegnr.', 'Text', 'Gegenkonto', 'Soll', 'Haben', 'Saldo']] # this is the header row 
         statement = 'SELECT * FROM "%s"' %konto[0]
@@ -648,7 +661,7 @@ class Kontoauszug(QtGui.QDialog, Ui_Dialog):
                 total_haben = total_haben + float(row[6])
             except ValueError:
                 total_haben = total_haben
-        doc.add_header(konto[1]+' - '+konto[0], meteorpdf.H5)
+        doc.add_header(konto[1]+' - '+konto[0], modules.meteorpdf.H5)
         buchungen_table.append(['Summe Bewegungen:','','','','%.2f' % total_soll,'%.2f' % total_haben , saldo_cell]) 
         doc.add_table_auszug(buchungen_table, TABLE_WIDTH)
         document = doc.render()
