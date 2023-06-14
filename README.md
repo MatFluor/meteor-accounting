@@ -1,3 +1,5 @@
+# UNMAINTAINED AND ARCHIVED
+
 meteor-accounting
 =================
 
